@@ -1,40 +1,23 @@
 # Discord-Handler
-El handler de SystemTheCow pero con aliases, interaction, anti-crash y event handler. El mejor handler para iniciar a programar un bot de discord!
+Una combinacion del handler de System32 y NamVr. El mejor handler para iniciar tu bot!
 
-Primero tienes que hacer en el terminal ``npm i discord.js@13.6.0 fs``
+Primero tienes que hacer en el terminal ``npm i discord.js@lastest fs``
 Luego tienes que poner tu token en [botconfig.json](./src/public/botconfig.json)
 
 Aqui tienes la base para todos los comandos que quieras hacer:
 
 ```js
 module.exports = {
-    name: '', //El nombre del comando ---- Obligatorio
-    aliases: [], //El alias es obligatorio que este en todos los comandos, si no se va a usar se sacan las " ---- Obligatorio
-    category: '', //La categoria del comando ---- Opcional
-    description: '', //La descripcion del comando ---- Opcional
-    usage: '', //Como se usa el comando: Syntax: <> = required, [] = optional ---- Opcional
-    userPerms: [""], //Defines los permisos necesarios del usuario ---- Opcional
-    clientPerms: [""], //Defines los permisos necesarios del bot ---- Opcional
-    toggleOff: false, //Defines si el comando esta deshabilitado o no, default false ---- Optional
-    async execute(message, args, MessageEmbed, Util, client){
-    },
-};
-```
-
-Aquí la base para todos tus comandos en slash:
-```js
-module.exports = {
-    name: '', //El nombre del comando ---- Obligatorio
-    description: '', //La descripción del comando ---- Obligatorio
-    options: [ //Un array con todas las opciones ---- Opcional
-      {
-        name: "", //El nombre de la opción ---- Obligatorio
-        type: "STRING", //El tipo de opción: https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type ---- Obligatorio
-        description: "", //Descripción de la opción ---- Obligatorio
-        required: false, //Requerido, Boolean ---- Obligatorio
-      },
-    ],
-    async execute (Discord, client, interaction) {
+    name: String, //El nombre del comando ---- Obligatorio
+    aliases: [String], //El alias es obligatorio que este en todos los comandos, si no se va a usar se sacan las " ---- Obligatorio
+    category: String, //La categoria del comando ---- Opcional
+    description: String, //La descripcion del comando ---- Opcional
+    usage: String, //Como se usa el comando: Syntax: <> = required, [] = optional ---- Opcional
+    userPerms: [String], //Defines los permisos necesarios del usuario ---- Opcional
+    toggleOff: Boolean, //Defines si el comando esta deshabilitado o no, default false ---- Optional
+    ownerOnly: Boolean, //Defines si el comando solo lo puede ejecutar el desarollador ---- Opcional
+    cooldown: Number,  //Defines el tiempo de espera para volver a ejecutarlo en segundos ---- Opcional
+    async execute(message, args, Discord, Util, client){
     },
 };
 ```
@@ -42,11 +25,12 @@ module.exports = {
 Para finalizar haz tus comandos y disfruta del handler! <3
 
 # Soporte
-Mi user: Matt.7w7#2112
+Mi user: matt.7w7
 
 # Repositorio original
-Repositorio Base:
+Repositorios Base:
 https://github.com/SystemTheCow/discord-js-v13/tree/Command-y-Event-Handler
+https://github.com/NamVr/DiscordBot-Template/
 
 Repositorio de handler slash:
 https://github.com/ShingSemicolon/Guia-Slash-Command
