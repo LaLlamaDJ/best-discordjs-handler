@@ -1,3 +1,7 @@
 {
-    "token": "aqui va tu token"
+    "token": "Tu token",
+    "owner": "Tu id de discord",
+    "client_id": "El id del bot",
+    "test_guild_id": "Id del servidor de pruebas",
+    "prefix": "El prefix que prefieras"
 }

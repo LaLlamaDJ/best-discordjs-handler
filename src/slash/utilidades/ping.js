@@ -1,7 +1,8 @@
-
 module.exports = {
-  name: "ping",
-  description: "Pong!",
+  data: {
+    name: "ping",
+    description: "Pong!",
+  },
   async execute(Discord, client, interaction) {
     interaction.reply({ content: `${client.ws.ping}ms` })
   }
