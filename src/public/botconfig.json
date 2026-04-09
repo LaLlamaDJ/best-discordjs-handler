@@ -1,0 +1,12 @@
+{
+    "token": "bot token",
+    "owner": "tu id de disc",
+    "client_id": "la id del bot",
+    "test_guild_id": "id del servidor de pruebas",
+    "prefix": "el prefix que quieras",
+    "slash_global": "boolean: define si carga los slash en el servidor de pruebas o en todos los servidores del bot",
+
+    "log_level":"debug",
+    "log_to_file":"true",
+    "log_file":"app.log"
+}
