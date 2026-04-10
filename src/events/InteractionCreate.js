@@ -91,21 +91,20 @@ module.exports = {
             }
         } else if(interaction.isStringSelectMenu()) {
             const commandssm = client.select.get(interaction.customId);
-            if (!commandssm) {
-                return interaction.reply({
-                    content: `Ocurrio un error!`,
-                    ephemeral: true,
-                });
-            }
-            try{
-                await commandssm.execute(interaction);
+            if (!commandssm) return;
+
+            try {
+                await commandssm.execute(interaction, client, Utils, Discord);
             } catch (err) {
-                Utils.logger.error(`Error ejecutando un menuselectivo:` + err);
-                await interaction.reply({
-                    content: `Ocurrion un error!`,
-                    ephemeral: true,
-                });
-            };
+                Utils.logger.error("Error en select menu: " + err);
+
+                if (!interaction.replied && !interaction.deferred) {
+                    await interaction.reply({
+                    content: "Ocurrió un error",
+                    ephemeral: true
+                    });
+                }
+            }
         }
     },
 };
