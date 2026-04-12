@@ -14,9 +14,6 @@ module.exports = {
         const command =
             client.commands.get(query) ||
             client.commands.get(client.aliases.get(query));
-        const usage = command.usage
-            ? `${Utils.config.prefix}${command.name} ${command.usage}`
-            : `${Utils.config.prefix}${command.name}`;
 
         client.commands.forEach(cmd => {
             const cat = cmd.category || "Sin Categorizar";
@@ -50,6 +47,9 @@ module.exports = {
                 components: [row]
             });
         } else if (query && command) {
+            const usage = command.usage
+            ? `${Utils.config.prefix}${command.name} ${command.usage}`
+            : `${Utils.config.prefix}${command.name}`;
             const embedCMD = Utils.embed(message.author, {
                 title: `📌 Comando: ${command.name}`,
                 description: command.description || "Sin descripción",
