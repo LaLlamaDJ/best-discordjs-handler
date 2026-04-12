@@ -24,9 +24,28 @@ module.exports = {
             if (command.toggleOff) {
                 return message.channel.send(`Este comando fue deshabiltado por mi creador!!`)
             }
+            
+            //////////////////// COOLDOWNS ////////////////////
+            if (!client.cooldowns.has(command.name)) {
+			    client.cooldowns.set(command.name, new Discord.Collection());
+		    }
+            const now = Date.now();
+		    const timestamps = client.cooldowns.get(command.name);;
+		    const cooldownAmount = (command.cooldown || 3) * 1000;
+            if (timestamps.has(message.author.id)) {
+			    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+
+			    if (now < expirationTime) {
+			    	const timeLeft = (expirationTime - now) / 1000;
+			    	return message.channel.send(`Espera ${timeLeft.toFixed(1)} segundos para volver a usar \`${command.name}\`.`)
+			    }
+		    }
+            timestamps.set(message.author.id, now);
+    		setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+            //////////////////// COOLDOWNS ////////////////////
         }
 
-//////////////////// TRIGGERS ////////////////////
+        //////////////////// TRIGGERS ////////////////////
         let triggered = false;
         message.client.triggers.every((trigger) => {
             if(triggered) return false;
@@ -46,7 +65,7 @@ module.exports = {
                 }
             });
         });
-//////////////////// TRIGGERS ////////////////////
+        //////////////////// TRIGGERS ////////////////////
 
         try{
             command.execute(message, args, client, Utils, Discord)

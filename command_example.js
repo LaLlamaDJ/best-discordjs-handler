@@ -1,7 +1,6 @@
 module.exports = {
     name: String, //El nombre del comando ---- Obligatorio
     aliases: [String], //El alias es obligatorio que este en todos los comandos, si no se va a usar se sacan las " ---- Obligatorio
-    category: String, //La categoria del comando ---- Opcional
     description: String, //La descripcion del comando ---- Opcional
     usage: String, //Como se usa el comando: Syntax: <> = required, [] = optional ---- Opcional
     userPerms: [String], //Defines los permisos necesarios del usuario ---- Opcional

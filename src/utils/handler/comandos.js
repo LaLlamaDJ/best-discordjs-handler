@@ -1,6 +1,7 @@
 module.exports.comandos = function (fs, client, Discord) {
     client.commands = new Discord.Collection();
     client.aliases = new Discord.Collection();
+    client.cooldowns = new Discord.Collection();
     const commandFolder = fs.readdirSync(__dirname + "/" + `../../commands`);
     for (const folder of commandFolder) {
       const commandFile = fs.readdirSync(__dirname + "/" + `../../commands/${folder}`);
