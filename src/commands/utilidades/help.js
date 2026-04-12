@@ -1,8 +1,16 @@
 module.exports = {
-    name: "help",
-    aliases: [], 
+    name: 'help',
+    description: 'Visualiza la lista de comandos.',
+    usage: "[comando]",
+    cooldown: 7,
+    args: false,
+    minArgs: 0,
+    maxArgs: 1,
+    argsSchema: [
+        { name: "comando", type: "string", required: false }
+    ],
     async execute(message, args, parsedArgs, client, Utils, Discord) {
-        const query = args[0]?.toLowerCase();
+        const query = parsedArgs.comando?.toLowerCase();
         const categoryEmojis = {
             utilidades: "🛠️",
             admin: "⚙️",
@@ -50,6 +58,7 @@ module.exports = {
             const usage = command.usage
             ? `${Utils.config.prefix}${command.name} ${command.usage}`
             : `${Utils.config.prefix}${command.name}`;
+
             const embedCMD = Utils.embed(message.author, {
                 title: `📌 Comando: ${command.name}`,
                 description: command.description || "Sin descripción",
@@ -68,16 +77,39 @@ module.exports = {
                     },
                     {
                         name: "📥 Uso",
-                        value: `\`${usage}\``
+                        value: `\`${usage}\``,
+                        inline:true
+                    },
+                    {
+                        name: "⏱️ Enfriamiento",
+                        value: command.cooldown
+                        ? `${command.cooldown} segundos`
+                        : "No tiene",
+                        inline: true
+                    }, 
+                    {
+                        name: "🔞 NSFW",
+                        value: command.nsfw ? "Sí" : "No",
+                        inline: true
+                    },
+                    {
+                        name: "👑 Permisos del usuario",
+                        value: command.userPermissions
+                        ? command.userPermissions.join(", ")
+                        : "Ninguno",
+                        inline: true
+                    }, 
+                    {
+                        name: "👮 Permisos del bot",
+                        value: command.botPermissions
+                        ? command.botPermissions.join(", ")
+                        : "Ninguno"
                     }
                 ]
             });
             return message.reply({ embeds: [embedCMD] });
         } if (query && !command) {
-            return message.reply({
-                content: "❌ Ese comando no existe",
-                ephemeral: true
-            });
+            return message.reply("❌ Ese comando no existe");
         }
     },
 };

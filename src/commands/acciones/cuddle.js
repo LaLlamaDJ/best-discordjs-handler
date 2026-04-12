@@ -1,15 +1,17 @@
 module.exports = {
     name: 'cuddle',
+    description: 'Acurrúcate con alguien',
+    usage: "<usuario>",
+    cooldown: 7,
+    args: true,
+    minArgs: 1,
+    maxArgs: 1,
+    argsSchema: [
+        { name: "user", type: "user", required: true }
+    ],
     async execute(message, args, parsedArgs, client, Utils, Discord) {
-        let author = message.author
-        let user = message.mentions.users.first()
-
-        if(!user) {
-            return message.reply(`Debes mencionar a alguien!`);
-        }
-
-        const embed = Utils.embed(author, {
-            "description": `**${author.displayName}** se acurrucó con **${user.displayName}**!`,
+        const embed = Utils.embed(message.author, {
+            "description": `**${message.author.displayName}** se acurrucó con **${parsedArgs.user.displayName}**!`,
             "image": {
                 "url": `${await Utils.dgif.cuddle()}`
             }
