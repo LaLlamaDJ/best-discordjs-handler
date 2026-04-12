@@ -1,12 +1,41 @@
 module.exports = {
-    name: String, //El nombre del comando ---- Obligatorio
-    aliases: [String], //El alias es obligatorio que este en todos los comandos, si no se va a usar se sacan las " ---- Obligatorio
-    description: String, //La descripcion del comando ---- Opcional
-    usage: String, //Como se usa el comando: Syntax: <> = required, [] = optional ---- Opcional
-    userPerms: [String], //Defines los permisos necesarios del usuario ---- Opcional
-    toggleOff: Boolean, //Defines si el comando esta deshabilitado o no, default false ---- Optional
-    ownerOnly: Boolean, //Defines si el comando solo lo puede ejecutar el desarollador ---- Opcional
-    cooldown: Number,  //Defines el tiempo de espera para volver a ejecutarlo en segundos ---- Opcional
-    async execute(message, args, client, Utils, Discord){
+    name: String, // Nombre del comando (obligatorio)
+    aliases: [String], // Alias del comando 
+
+    description: String, // Descripción del comando
+    usage: String, // Ej: !ban <user> [reason]
+
+    args: Boolean, // Si requiere argumentos
+    minArgs: Number, // Mínimo de argumentos
+    maxArgs: Number, // Máximo de argumentos
+
+    argsSchema: [
+        {
+            name: String,       // Nombre del argumento
+            type: String,       // string | number | boolean | user | member | role | channel | emoji
+            required: Boolean,  // Si es obligatorio
+
+            // SOLO PARA STRING
+            rest: Boolean,      // Captura todo el resto del mensaje
+
+            // SOLO PARA NUMBER
+            min: Number,        // Valor mínimo
+            max: Number,        // Valor máximo
+
+            // TODOS
+            choices: [String]   // Valores permitidos
+        }
+    ],
+
+    userPerms: [String], // Permisos del usuario
+    botPerms: [String], // Permisos del bot
+
+    ownerOnly: Boolean, // Solo el owner
+    guildOnly: Boolean, // Solo servidores
+    nsfw: Boolean, // Solo canales NSFW
+    cooldown: Number, // Cooldown en segundos
+    toggleOff: Boolean, // Deshabilitado
+
+    async execute(message, args, parsedArgs, client, Utils, Discord) {
     },
 };

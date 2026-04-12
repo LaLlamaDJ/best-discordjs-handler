@@ -1,7 +1,7 @@
 module.exports = {
     name: "help",
     aliases: [], 
-    async execute(message, args, client, Utils, Discord){
+    async execute(message, args, parsedArgs, client, Utils, Discord) {
         const query = args[0]?.toLowerCase();
         const categoryEmojis = {
             utilidades: "🛠️",

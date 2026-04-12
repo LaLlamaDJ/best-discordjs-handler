@@ -1,7 +1,6 @@
 module.exports = {
     name: 'cuddle',
-    category: 'actions',
-    async execute(message, args, client, Utils, Discord){
+    async execute(message, args, parsedArgs, client, Utils, Discord) {
         let author = message.author
         let user = message.mentions.users.first()
 

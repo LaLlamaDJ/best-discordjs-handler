@@ -7,8 +7,6 @@ const client = new Discord.Client({
   presence: { status: "dnd", activities: [{ name: "Some games...", type: "PLAYING" }] }
 });
 
-//client.cooldowns = new Discord.Collection();
-
 const args3 = [fs, client, Discord], args2 = [fs, client];
 const handlers = { autocomplete: args3, buttons: args3, comandos: args3, context: args3, eventos: args2, modals: args3, selectmenu: args3, slash: args3, triggers: args3 };
 

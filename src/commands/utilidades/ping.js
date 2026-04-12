@@ -1,7 +1,7 @@
 module.exports = {
     name: 'ping',
     aliases: ["p"],
-    async execute(message, args, client, Utils, Discord){
+    async execute(message, args, parsedArgs, client, Utils, Discord) {
         const embed = Utils.embed(message.author, {
             "title": '🏓Pong',
             "description": `> Ping: ${Date.now() - message.createdTimestamp}ms.\n > API Ping: ${Math.round(await client.ws.ping)}ms.`
