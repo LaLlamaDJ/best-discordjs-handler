@@ -3,6 +3,7 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: Discord.Events.MessageCreate,
+    once: false,
     async execute(message, client){
         if (message.author.bot) return;
         if (!message.guild) return;

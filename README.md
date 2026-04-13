@@ -142,13 +142,41 @@ module.exports = {
 ```js
 module.exports = {
   data: {
-    name: "",
-    description: "",
+    name: String,
+    description: String,
+    options: [
+      {
+        name: String,
+        description: String,
+        required: Boolean,
+        type: Number // se detalla mas abajo
+      }
+    ],
   },
-
+  userPerms: [String],
+  botPerms: [String],
+  ownerOnly: Boolean,
+  nsfw: Boolean,
+  toggleOff: Boolean,
+  guildOnly: Boolean
+  cooldown: Number,
   async execute(interaction, client, Utils, Discord) {}
 };
 ```
+
+| Tipo              | Nombre en Discord.js | Valor numérico | Descripción                               |
+| ----------------- | -------------------- | -------------- | ----------------------------------------- |
+| SUB_COMMAND       | `SUB_COMMAND`        | 1              | Subcomando dentro de un comando principal |
+| SUB_COMMAND_GROUP | `SUB_COMMAND_GROUP`  | 2              | Grupo de subcomandos                      |
+| STRING            | `STRING`             | 3              | Texto                                     |
+| INTEGER           | `INTEGER`            | 4              | Número entero                             |
+| BOOLEAN           | `BOOLEAN`            | 5              | Verdadero / falso                         |
+| USER              | `USER`               | 6              | Usuario de Discord                        |
+| CHANNEL           | `CHANNEL`            | 7              | Canal (texto, voz, etc.)                  |
+| ROLE              | `ROLE`               | 8              | Rol del servidor                          |
+| MENTIONABLE       | `MENTIONABLE`        | 9              | Usuario o rol mencionable                 |
+| NUMBER            | `NUMBER`             | 10             | Número decimal                            |
+
 
 ---
 

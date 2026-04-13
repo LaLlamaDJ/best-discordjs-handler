@@ -5,12 +5,71 @@ module.exports = {
     name: Discord.Events.InteractionCreate,
     once: false,
     async execute(interaction, client){
-        if(interaction.isChatInputCommand()/* && interaction.isCommand()*/) {
+        if(interaction.isChatInputCommand()) {
             const commandslash = client.slash.get(interaction.commandName.toLowerCase());
             if(!commandslash) return interaction.reply({ 
                 content: `${interaction.commandName.toLowerCase()} no es un comando valido!`,
                 ephemeral: true,
             });
+            if(commandslash.ownerOnly && interaction.user.id !== Utils.ownerID) {
+                return interaction.reply({
+                    content: "Solo el propietario del bot puede usar este comando!",
+                    ephemeral: true
+                });
+            }
+            if(commandslash.guildOnly && !interaction.guild) {
+                return interaction.reply({
+                    content: "Este comando solo puede ser usado en servidores!",
+                    ephemeral: true
+                });
+            }
+            if(commandslash.toggleOff) {
+                return interaction.reply({
+                    content: "Este comando está desactivado!",
+                    ephemeral: true
+                });
+            }
+            if (commandslash.nsfw && (!interaction.channel || !interaction.channel.nsfw)) {
+                return interaction.reply({
+                    content: "Este comando solo puede ser usado en canales NSFW!",
+                    ephemeral: true
+                });
+            }
+            if (commandslash.userPerms && (!interaction.member || !interaction.member.permissions.has(commandslash.userPerms))) {
+                const missing = commandslash.userPerms.filter(perm => !interaction.member.permissions.has(perm)).map(perm => `\`${perm}\``).join(", ");
+                return interaction.reply({
+                    content: `No tienes los permisos necesarios para usar este comando! Permisos faltantes: ${missing}`,
+                    ephemeral: true
+                });
+            }
+            if(commandslash.botPerms && !interaction.guild.members.me.permissions.has(commandslash.botPerms)) {
+                const missing = commandslash.botPerms.filter(perm => !interaction.guild.members.me.permissions.has(perm)).map(perm => `\`${perm}\``).join(", ");
+                return interaction.reply({
+                    content: `El bot no tiene los permisos necesarios para usar este comando! Permisos faltantes: ${missing}`,
+                    ephemeral: true
+                });
+            }
+            //////////////////// COOLDOWNS ////////////////////
+            if (!client.cooldowns.has(commandslash.name)) {
+                client.cooldowns.set(commandslash.name, new Discord.Collection());
+            }
+            const now = Date.now();
+            const timestamps = client.cooldowns.get(commandslash.name);;
+            const cooldownAmount = (commandslash.cooldown || 3) * 1000;
+            if (timestamps.has(interaction.user.id)) {
+                const expirationTime = timestamps.get(interaction.user.id) + cooldownAmount;
+                if (now < expirationTime) {
+                    const timeLeft = (expirationTime - now) / 1000;
+                    return interaction.reply({
+                            content: `Espera ${timeLeft.toFixed(1)} segundos para volver a usar \`${commandslash.data.name}\`.`,
+                            ephemeral: true
+                    });
+                }
+            }
+            timestamps.set(interaction.user.id, now);
+            setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
+            //////////////////// COOLDOWNS ////////////////////
+
             try {
                 await commandslash.execute(interaction, client, Utils, Discord);
             } catch(err) {
