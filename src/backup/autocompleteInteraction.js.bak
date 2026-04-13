@@ -1,0 +1,17 @@
+const Discord = require("discord.js");
+
+module.exports = {
+    name: Discord.Events.InteractionCreate,
+    async execute(interaction, client){
+        if (!interaction.isAutocomplete()) return;
+        const request = client.autocomplete.get(interaction.commandName);
+        if(!request) return;
+
+        try {
+            await request.execute(interaction);
+        } catch (error) {
+            console.log(error);
+            return Promise.reject(error);
+        }
+    },
+};

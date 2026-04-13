@@ -1,0 +1,14 @@
+[05:40:18] [FATAL] Error al iniciar sesión: Error: Used disallowed intents
+[05:41:53] [SUCCESS] Iniciado como Pruebabot8882
+[05:41:53] [SUCCESS] Slash commands cargados correctamente.
+[05:42:48] [DEBUG] ConnectTimeoutError: Connect Timeout Error (attempted addresses: 162.159.138.232:443, 162.159.136.232:443, 162.159.137.232:443, 162.159.135.232:443, 162.159.128.233:443, timeout: 10000ms) | Internal: false | Fatal: false [node_modules\undici\lib\core\connect.js:237]
+[05:43:08] [DEBUG] ConnectTimeoutError: Connect Timeout Error (attempted addresses: 162.159.138.232:443, 162.159.136.232:443, 162.159.137.232:443, timeout: 10000ms) | Internal: false | Fatal: false [node_modules\undici\lib\core\connect.js:237]
+[09:47:08] [SUCCESS] 🧠 4 slash commands generados automáticamente
+[09:47:09] [SUCCESS] Iniciado como Pruebabot8882
+[09:47:10] [SUCCESS] Slash commands cargados correctamente.
+[09:52:02] [SUCCESS] 🧠 4 slash commands generados automáticamente
+[09:52:03] [SUCCESS] Iniciado como Pruebabot8882
+[09:52:04] [SUCCESS] Slash commands cargados correctamente.
+[09:58:53] [SUCCESS] 5 slash commands generados automáticamente
+[09:58:55] [SUCCESS] Iniciado como Pruebabot8882
+[09:58:55] [SUCCESS] Slash commands cargados correctamente.
