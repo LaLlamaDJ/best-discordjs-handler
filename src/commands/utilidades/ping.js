@@ -8,11 +8,19 @@ module.exports = {
     args: false,
     async execute(message, args, parsedArgs, client, Utils, Discord) {
         const start = Date.now();
-        await mongoose.connection.db.collection("guilds").findOne({});
+        let dbPing = null;
+        try {
+            await mongoose.connection.db.collection("guilds").findOne({});
+            const endDb = Date.now();
+            dbPing = endDb - start;
+        } catch (err) {
+            dbPing = "OFFLINE";
+        }
         const end = Date.now();
+
         const embed = Utils.embed(message.author, {
             "title": '🏓Pong',
-            "description": `> Ping: ${end - message.createdTimestamp}ms.\n > API Ping: ${Math.round(await client.ws.ping)}ms. \n > DB Ping: ${end - start}ms.`
+            "description": `> Ping: ${end - message.createdTimestamp}ms.\n > API Ping: ${Math.round(await client.ws.ping)}ms. \n > DB Ping: ${dbPing}ms.`
         }) 
 
         const row = new Discord.ActionRowBuilder()
@@ -20,7 +28,7 @@ module.exports = {
             new Discord.ButtonBuilder()
             .setCustomId("sample")
             .setStyle(Discord.ButtonStyle.Primary)
-            .setLabel("Boton de Prueba")
+            .setLabel("el diavlo")
         )
 
         message.channel.send({ embeds: [embed], components: [row]  });

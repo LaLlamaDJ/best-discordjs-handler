@@ -1,5 +1,6 @@
 const Utils = require("../utils/index");
 const Discord = require("discord.js");
+const mongoose = require("mongoose")
 
 module.exports = {
     name: Discord.Events.MessageCreate,
@@ -7,8 +8,17 @@ module.exports = {
     async execute(message, client){
         if (message.author.bot) return;
         if (!message.guild) return;
-        const guildDB = await Utils.db.guild.getGuild(message.guild.id);
-        const prefix = guildDB.prefix || Utils.config.prefix;
+
+        let prefix;
+        const mongoReady = mongoose.connection.readyState === 1;
+
+        if (mongoReady) {
+            const guildDB = await Utils.db.guild.getGuild(message.guild.id);
+            prefix = guildDB?.prefix || Utils.config.prefix;
+        } else {
+            prefix = Utils.config.prefix;
+        }
+        
         if (!message.content.startsWith(prefix) || message.author.bot) return;
         const args = message.content.slice(prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
