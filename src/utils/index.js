@@ -1,13 +1,13 @@
 const DefaultEmbed = require('./others/defaultembed');
-const dgif = require('./others/gifsprovider');
-const logger = require('./others/logger');
-const fetch = require('./others/fetch');
-const config = require('../public/botconfig.json');
 
 module.exports = {
-    config,
+    config: require('../public/botconfig.json'),
     embed: (author, options) => new DefaultEmbed(author, options),
-    dgif,
-    logger,
-    fetch,
+    dgif: require('./others/gifsprovider'),
+    logger: require('./others/logger'),
+    fetch: require('./others/fetch'),
+    db: {
+        guild: require('./database/guild'),
+        connect: require('./database').connectDB
+    }
 };

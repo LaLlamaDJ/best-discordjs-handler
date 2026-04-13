@@ -15,5 +15,6 @@ Object.entries(handlers).forEach(([name, args]) => {
   handler[name === 'selectmenu' ? 'select' : name]?.(...args);
 });
 
+Utils.db.connect();
 Utils.logger.initGlobalHandlers();
 client.login(Utils.config.token).catch(err => Utils.logger.fatal("Error al iniciar sesión: " + err));

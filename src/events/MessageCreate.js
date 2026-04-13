@@ -3,14 +3,18 @@ const Discord = require("discord.js");
 
 module.exports = {
     name: Discord.Events.MessageCreate,
-    execute(message, client){
+    async execute(message, client){
         if (message.author.bot) return;
         if (!message.guild) return;
-        if (!message.content.startsWith(Utils.config.prefix) || message.author.bot) return;
-        const args = message.content.slice(Utils.config.prefix.length).split(/ +/);
+        const guildDB = await Utils.db.guild.getGuild(message.guild.id);
+        const prefix = guildDB.prefix || Utils.config.prefix;
+        if (!message.content.startsWith(prefix) || message.author.bot) return;
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
         const commandName = args.shift().toLowerCase();
         const command = client.commands.get(commandName.toLowerCase()) ||  client.commands.find((command) => command.aliases && command.aliases.includes(commandName));
         if(!command) return message.reply(`${commandName} no es un comando valido!`);
+
+        let parsedArgs = null;
 
         function parseArgs(message, args, schema, client) {
                 const parsed = {};

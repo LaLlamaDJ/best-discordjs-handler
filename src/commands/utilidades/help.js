@@ -10,6 +10,7 @@ module.exports = {
         { name: "comando", type: "string", required: false }
     ],
     async execute(message, args, parsedArgs, client, Utils, Discord) {
+        const prefix = await Utils.db.guild.getPrefix(message.guild.id) || Utils.config.prefix;
         const query = parsedArgs.comando?.toLowerCase();
         const categoryEmojis = {
             utilidades: "🛠️",
@@ -31,8 +32,12 @@ module.exports = {
 
         if(!query) {
             const embed = Utils.embed(message.author, {
-                "title": "📖 Panel de Ayuda",
-                "description": "Seleccioná una categoría del menú"
+                title: "📖 Panel de Ayuda",
+                description: "Seleccioná una categoría del menú",
+                fields: [{
+                    name: "📍 Prefix del servidor",
+                    value: `\`${prefix}\``
+                }]
             });
 
             const menu = new Discord.StringSelectMenuBuilder()
