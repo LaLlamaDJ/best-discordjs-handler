@@ -4,6 +4,7 @@
     "client_id": "la id del bot",
     "test_guild_id": "id del servidor de pruebas",
     "prefix": "el prefix que quieras",
+    "mongoDB": "tu uri de coneccion a mongodb, de referencia que tenga desactivada la srv",
     "slash_global": "boolean: define si carga los slash en el servidor de pruebas o en todos los servidores del bot",
 
     "log_level":"debug",
