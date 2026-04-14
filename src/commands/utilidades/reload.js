@@ -19,7 +19,7 @@ module.exports = {
     async execute(message, args, parsedArgs, client, Utils, Discord) {
         if (parsedArgs.tipo === "comandos") {
             commandHandler.comandos(fs, client, Discord);
-            Utills.logger.warn(`Comandos recargados por ${message.author.tag}`);
+            Utils.logger.warn(`Comandos recargados por ${message.author.tag}`);
             message.reply({ content: `Comandos recargados.` });
         } else if (parsedArgs.tipo === "eventos") {
             eventHandler.eventos(fs, client);
