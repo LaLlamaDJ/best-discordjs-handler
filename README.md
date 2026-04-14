@@ -32,17 +32,34 @@ Existe una segunda rama del repositorio llamada **FUSION**, la cual unifica la c
 - 🌐 Fetch wrapper (reemplazo de axios)
 - 🎞️ GIF provider modular
 - 🧠 Sistema anti-crash
+- 🔁 Sistema de reload en caliente (manual)
+- 📂 Soporte de subcarpetas en comandos y eventos
+- ♻️ Recarga segura sin duplicación de eventos
 - 📦 Arquitectura ligera y modular
 
 ---
 
-## 📦 Instalación
+## 🔥 Sistema de Reload
+
+El handler incluye un comando `reload` que permite:
+
+- Recargar comandos prefix
+- Recargar eventos
+- Recargar slash commands (Solo la logica, no lo que se le envia a la API)
 
 ```bash
-npm install discord.js fs mongoose pm2
+!reload
 ```
 
-> ⚠️ PM2 es opcional (solo para auto-restart del bot)
+> ⚠️ No reinicia el proceso. Recarga todo dinámicamente.
+
+---
+
+## 📦 Instalación
+```bash
+npm install discord.js fs mongoose
+```
+
 
 ---
 
@@ -111,13 +128,13 @@ module.exports = {
     argsSchema: [
         {
             name: String,
-            type: String, // string | number | boolean | user | member | role | channel | emoji
+            type: String,
             required: Boolean,
 
-            rest: Boolean, // solo string
+            rest: Boolean,
 
-            min: Number,   // solo number
-            max: Number,   // solo number
+            min: Number,
+            max: Number,
 
             choices: [String]
         }
@@ -150,7 +167,7 @@ module.exports = {
         name: String,
         description: String,
         required: Boolean,
-        type: Number // se detalla mas abajo
+        type: Number //se detalla mas abajo
       }
     ],
   },
@@ -159,11 +176,12 @@ module.exports = {
   ownerOnly: Boolean,
   nsfw: Boolean,
   toggleOff: Boolean,
-  guildOnly: Boolean
+  guildOnly: Boolean,
   cooldown: Number,
   async execute(interaction, client, Utils, Discord) {}
 };
 ```
+
 
 | Tipo              | Nombre en Discord.js | Valor numérico | Descripción                               |
 | ----------------- | -------------------- | -------------- | ----------------------------------------- |
@@ -179,11 +197,10 @@ module.exports = {
 | NUMBER            | `NUMBER`             | 10             | Número decimal                            |
 
 
+
 ---
 
 ## 🧩 Sistema de embeds
-
-Se reemplaza `EmbedBuilder` por el sistema de Utils:
 
 ```js
 const embed = new Utils.embed(author, {
@@ -195,7 +212,7 @@ const embed = new Utils.embed(author, {
 });
 ```
 
-> ⚠️ No agregar footer, timestamp ni color manualmente (el sistema lo maneja automáticamente)
+> ⚠️ No agregar footer, timestamp ni color manualmente
 
 ---
 
@@ -211,8 +228,6 @@ Integrado con MongoDB usando Mongoose para:
 
 ## 🪵 Logger
 
-Sistema de logs mejorado para consola:
-
 ```js
 Utils.logger.success("Conectado");
 Utils.logger.error("Error detectado");
@@ -226,8 +241,6 @@ Utils.logger.info("Existen 5 comandos de prefix");
 
 ## 🌐 Fetch system
 
-Reemplazo liviano de axios:
-
 ```js
 const data = await Utils.fetch("https://api.example.com");
 ```
@@ -235,8 +248,6 @@ const data = await Utils.fetch("https://api.example.com");
 ---
 
 ## 🎞️ GIF Provider
-
-Sistema modular para obtener GIFs:
 
 ```js
 const gif = await Utils.gif.get("hug");
@@ -246,7 +257,7 @@ const gif = await Utils.gif.get("hug");
 
 ## ⚡ Anti-crash system
 
-El handler incluye protección contra errores críticos para evitar que el bot se caiga por fallos en comandos o eventos.
+Protección contra errores críticos para evitar caídas del bot.
 
 ---
 

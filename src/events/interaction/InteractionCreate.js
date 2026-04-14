@@ -1,4 +1,4 @@
-const Utils = require("../utils/index");
+const Utils = require("../../utils/index");
 const Discord = require("discord.js");
 
 module.exports = {

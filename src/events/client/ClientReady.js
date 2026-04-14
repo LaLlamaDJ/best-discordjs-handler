@@ -1,7 +1,7 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v10');
 const { Events } = require("discord.js");
-const Utils = require("../utils/index");
+const Utils = require("../../utils/index");
 
 module.exports = {
     name: Events.ClientReady,

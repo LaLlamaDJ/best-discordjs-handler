@@ -6,7 +6,10 @@ module.exports.comandos = function (fs, client, Discord) {
     for (const folder of commandFolder) {
       const commandFile = fs.readdirSync(__dirname + "/" + `../../commands/${folder}`);
       for (const file of commandFile) {
+        if(!file.endsWith(".js")) continue;
+        delete require.cache[require.resolve(__dirname + "/" + `../../commands/${folder}/${file}`)];
         const command = require(__dirname + "/" + `../../commands/${folder}/${file}`);
+        if(!command.name) continue;
         command.category =
           folder.charAt(0).toUpperCase() +
           folder.slice(1).toLowerCase();
